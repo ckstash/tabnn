@@ -1,8 +1,8 @@
 [project]
 name = "tabnn"
-version = "0.1.0"
+version = "0.2.3"
 license = { file = "LICENSE" }
-description = "Tabular neural net classifier supporting overlapping input features and targets"
+description = "Tabular neural network classifier supporting overlapping input features and targets"
 readme = "README.md"
 authors = [
     { name = "Chinmay Kakatkar", email = "chinmay.kakatkar@sap.com" }

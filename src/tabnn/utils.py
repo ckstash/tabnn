@@ -5,7 +5,7 @@ from sklearn.metrics import f1_score
 import matplotlib.pyplot as plt
 from typing import Any, Dict, List, Optional
 import random
-from src.tabnn.model import TabNNModel
+from .model import TabNNModel
 
 def random_masking(value, mask_prob=0.5):
     return -1 if np.random.binomial(n=1, p=mask_prob) else value

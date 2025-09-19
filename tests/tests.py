@@ -9,28 +9,24 @@ import os
 here = os.path.dirname(__file__)
 
 def test_1():
-    # 1. Load Titanic data
+    # Load Titanic data
     df = pd.read_csv(os.path.join(here, "titanic.csv"))
 
-    # 2. Define feature & target columns
+    # Define feature & target columns
     input_features = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Cabin", "Embarked"]
     #target_features = ["Survived"]
     target_features = ["Survived", "Pclass", "Sex", "SibSp"]
 
 
-    # 3. Split into train/test
+    # Split into train/test
     train_df, test_df = train_test_split(
         df,
         test_size=0.2,
         random_state=42,
         shuffle=True
     )
-
-    #print(train_df.head())
-
-    #print(test_df.head())
     
-    # 4. Instantiate & train on the training set only
+    # Instantiate & train on the training set only
     model = TabNNModel(
         input_feature_list=input_features,
         target_list=target_features,
@@ -58,7 +54,7 @@ def test_1():
     importances_normalized = model.feature_importance_scores(train_df, normalize=True)
     print(importances_normalized)
 
-    # 5. Evaluate on the test set
+    # Evaluate on the test set
     # Mask test set
     np.random.seed(1)
     test_df_masked = test_df.map(lambda x: random_masking(value=x, mask_prob=0.5))
@@ -67,8 +63,6 @@ def test_1():
         tgt: np.argmax(probas, axis=1)
         for tgt, probas in proba_dict.items()
     }
-
-    #print(preds)
 
     print("Test Set Metrics:")
     for tgt in target_features:
@@ -84,16 +78,16 @@ def test_1():
         print(f"{tgt:8s}  acc={acc:.3f}  prec={prec:.3f}  rec={rec:.3f}  f1={f1:.3f}")
 
 def test_2():
-    # 1. Load Titanic data
+    # Load Titanic data
     df = pd.read_csv(os.path.join(here, "titanic.csv"))
 
-    # 2. Define feature & target columns
+    # Define feature & target columns
     input_features = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Cabin", "Embarked"]
     #target_features = ["Survived"]
     target_features = ["Survived", "Pclass", "Sex", "SibSp"]
 
 
-    # 3. Split into train/test
+    # Split into train/test
     train_df, _ = train_test_split(
         df,
         test_size=0.2,
@@ -101,7 +95,7 @@ def test_2():
         shuffle=True
     )
 
-    # 1) Define the grid of hyperparameters
+    # Define the grid of hyperparameters
     param_grid = {
         "embedding_strategy":     ["embedding", "onehot_pca"],
         "onehot_pca_components":  [5, 8, 10],
@@ -114,7 +108,7 @@ def test_2():
         "upsampling_factor":      [1, 3, 5]
     }
 
-    # 2) Run n_iter random trials
+    # Run 10 random trials
     results_df = random_grid_search(
         df               = train_df,
         input_features   = input_features,
@@ -125,7 +119,7 @@ def test_2():
         random_state     = 42
     )
 
-    # 3) Inspect top 5 configurations
+    # Inspect top 5 configurations
     print(results_df.head(5))
     results_df.to_csv(os.path.join(here, "test_2_results.csv"), index=False)
 

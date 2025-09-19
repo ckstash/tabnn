@@ -9,7 +9,6 @@ from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from typing import Dict
-from src.tabnn.utils import *
 
 class EmbeddingEncoder(nn.Module):
     """
@@ -529,7 +528,7 @@ class TabNNModel:
         """
         Compute feature importance scores using input x gradient method. The scores are 
         mean absolute values of input x gradient across the dataset. These values reflect 
-        how sensitive the model output is to small changes in each input feature - a proxy 
+        how sensitive the model output is to small changes in each input feature, which is a proxy 
         for how much each feature influences the prediction. A higher score means the model 
         output is more sensitive to that feature.
 
