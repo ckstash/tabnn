@@ -331,13 +331,13 @@ class TabNNModel:
         # Loss: sum of CrossEntropy over each target head
         self.loss_fn = nn.CrossEntropyLoss()
 
-        # 1) Numeric inputs
+        # Numeric inputs
         X_num = torch.tensor(
             input_df[self.numeric_features].values,
             dtype=torch.float32
         )
 
-        # 2) Categorical inputs
+        # Categorical inputs
         if self.categorical_features:
             if self.embedding_strategy == "embedding":
                 # integer codes for nn.Embedding
@@ -358,7 +358,7 @@ class TabNNModel:
                 device=self.device
             )
 
-        # 3) Targets
+        # Targets
         y_tensor = torch.tensor(y_all, dtype=torch.long)
 
         # Train/validation split (skip if validation_split <= 0)
