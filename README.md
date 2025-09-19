@@ -1,8 +1,8 @@
 # TabNN
 
-**TabNN** is a tabular neural net classifier that supports overlapping input features and targets. This means a column in the training dataset can be specified either as an input feature, a target, or both. If the column is specified as an input or target feature only, then the model works as typically expected: at inference time, the input columns are used to predict the target columns. If a column is specified as both an input and a target, then at inference time, the column is treated as an input if it is provided, otherwise it is treated as a target. This allows TabNN to be used both for typical classification tasks and for tabular data imputation.
+**TabNN** is a tabular neural network classifier that supports overlapping input features and targets. This means a column in the training dataset can be specified as an input feature, a target, or both. If a column is specified as either an input or a target only, the model behaves as expected: at inference time, the input columns are used to predict the target columns. If a column is specified as both an input and a target, then at inference time it is treated as an input if a value is provided; otherwise, it is treated as a target. This allows TabNN to be used for both typical classification tasks and tabular data imputation.
 
-`TabNNModel` comes with `feature_importance_scores()`, a function to compute feature importance scores as mean absolute values of input x gradient across the dataset. These values reflect how sensitive the model output is to small changes in each input feature - a proxy for how much each feature influences the prediction. A higher score means the model output is more sensitive to that feature. The scores can be min-max normalized by setting the parameter `normalize=True` for better interpretability.
+`TabNNModel` includes the method `feature_importance_scores()`, which computes feature importance scores as the mean absolute value of *input × gradient* across the dataset. These values reflect how sensitive the model’s output is to small changes in each input feature—a proxy for how much each feature influences the prediction. A higher score means the model output is more sensitive to that feature. The scores can be min–max normalized by setting the parameter `normalize=True` for improved interpretability.
 
 ## Installation
 
@@ -10,7 +10,7 @@
 
 ## Example usage
 
-The example below also uses the numpy, pandas, and sklearn libraries:
+In addition to `tabnn` The example below uses the `numpy`, `pandas`, and `scikit-learn` libraries:
 
 `pip install pandas scikit-learn` (installing `pandas` will also install `numpy`)
 
@@ -89,4 +89,3 @@ for tgt in target_features:
 
     print(f"{tgt:8s}  acc={acc:.3f}  prec={prec:.3f}  rec={rec:.3f}  f1={f1:.3f}")
 ```
-
