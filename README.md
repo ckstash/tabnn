@@ -1,8 +1,17 @@
 # TabNN
 
-**TabNN** is a tabular neural network classifier that supports overlapping input features and targets. This means a column in the training dataset can be specified as an input feature, a target, or both. If a column is specified as either an input or a target only, the model behaves as expected: at inference time, the input columns are used to predict the target columns. If a column is specified as both an input and a target, then at inference time it is treated as an input if a value is provided; otherwise, it is treated as a target. This allows TabNN to be used for both typical classification tasks and tabular data imputation.
+**TabNN** is a tabular neural network classifier that supports overlapping input features and targets using denoising, as described [here](https://medium.com/data-science/dawn-of-the-denoisers-multi-output-ml-models-for-tabular-data-imputation-317711d7a193). This means a column in the training dataset can be specified as an input feature, a target, or both.  
 
-`TabNNModel` includes the method `feature_importance_scores()`, which computes feature importance scores as the mean absolute value of *input × gradient* across the dataset. These values reflect how sensitive the model’s output is to small changes in each input feature, which serves as a proxy for how much each feature influences the prediction. A higher score means the model output is more sensitive to that feature. The scores can be min–max normalized by setting the parameter `normalize=True` for improved interpretability.
+If a column is specified as either an input or a target only, the model behaves as expected: at inference time, the input columns are used to predict the target columns. If a column is specified as both an input and a target, then at inference time it is treated as an input if a value is provided; otherwise, it is treated as a target. This allows TabNN to be used for both typical classification tasks and tabular data imputation.
+
+`TabNNModel` includes the method `feature_importance_scores()`, which computes feature importance scores as the mean absolute value of *input × gradient* across the dataset. These values reflect how sensitive the model’s output is to small changes in each input feature, serving as a proxy for how much each feature influences the prediction. A higher score means the model output is more sensitive to that feature. The scores can be min–max normalized by setting the parameter `normalize=True` for improved interpretability.
+
+When instantiating `TabNNModel`, the key parameters for customizing the data imputation behavior are:
+
+- `mask_value` (float): The value used to denote missing data for the denoising logic, based on the given use case (e.g., `-1.0`, `0.0`).
+- `mask_prob` (float): The probability (between `0.0` and `1.0`) of randomly masking values to simulate missing data during training.
+- `mask_seed` (int): A seed value to reproduce random masking results.
+- `upsampling_factor` (int): The factor by which to upsample training data to create more variants of masked rows.
 
 ## Installation
 
@@ -10,9 +19,7 @@
 
 ## Example usage
 
-In addition to `tabnn` The example below uses the `numpy`, `pandas`, and `scikit-learn` libraries:
-
-`pip install pandas scikit-learn` (installing `pandas` will also install `numpy`)
+The example below uses the `numpy`, `pandas`, and `scikit-learn` libraries, which are installed as dependencies of `tabnn`.
 
 Get the Titanic dataset, e.g., from here: https://github.com/datasciencedojo/datasets/blob/master/titanic.csv
 
@@ -62,7 +69,7 @@ model = TabNNModel(
 # Fit model
 model.fit(train_df)
 
-# Get feature importnace scores
+# Get feature importance scores
 importances_normalized = model.feature_importance_scores(train_df, normalize=True)
 print(importances_normalized)
 
