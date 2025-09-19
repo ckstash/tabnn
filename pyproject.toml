@@ -1,6 +1,6 @@
 [project]
 name = "tabnn"
-version = "0.2.3"
+version = "0.2.5"
 license = { file = "LICENSE" }
 description = "Tabular neural network classifier supporting overlapping input features and targets"
 readme = "README.md"
@@ -9,12 +9,12 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "ipykernel==6.30.1",
-    "matplotlib==3.9.0",
-    "numpy==1.26.4",
-    "pandas==2.2.2",
-    "scikit-learn==1.5.0",
-    "torch==2.3.1",
+    "ipykernel>=6.30.1",
+    "matplotlib>=3.9.0",
+    "numpy>=1.26.4",
+    "pandas>=2.2.2",
+    "scikit-learn>=1.5.0",
+    "torch>=2.3.1",
 ]
 
 [build-system]
