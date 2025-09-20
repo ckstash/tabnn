@@ -13,6 +13,8 @@ When instantiating `TabNNModel`, the key parameters for customizing the data imp
 - `mask_seed` (int): A seed value to reproduce random masking results.
 - `upsampling_factor` (int): The factor by which to upsample training data to create more variants of masked rows.
 
+See full API documentation [here](https://github.com/ckstash/tabnn/blob/main/API.md)
+
 ## Installation
 
 `pip install tabnn`
@@ -96,4 +98,3 @@ for tgt in target_features:
 
     print(f"{tgt:8s}  acc={acc:.3f}  prec={prec:.3f}  rec={rec:.3f}  f1={f1:.3f}")
 ```
-
