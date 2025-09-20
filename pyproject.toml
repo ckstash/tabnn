@@ -1,11 +1,11 @@
 [project]
 name = "tabnn"
-version = "0.2.8"
+version = "0.3.0"
 license = { file = "LICENSE" }
 description = "Tabular neural network classifier supporting overlapping input features and targets"
 readme = "README.md"
 authors = [
-    { name = "Chinmay Kakatkar", email = "kcpub@gmail.com" }
+    { name = "Chinmay Kakatkar", email = "kcpub21@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [
@@ -16,6 +16,9 @@ dependencies = [
     "scikit-learn>=1.5.0",
     "torch>=2.3.1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/ckstash/tabnn"
 
 [build-system]
 requires = ["uv_build>=0.8.11,<0.9.0"]
