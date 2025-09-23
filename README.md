@@ -2,6 +2,10 @@
 
 **TabNN** is a tabular neural network classifier that supports overlapping input features and targets using denoising, as described [here](https://medium.com/data-science/dawn-of-the-denoisers-multi-output-ml-models-for-tabular-data-imputation-317711d7a193). This means a column in the training dataset can be specified as an input feature, a target, or both.  
 
+---
+
+## ✨ Features
+
 If a column is specified as either an input or a target only, the model behaves as expected: at inference time, the input columns are used to predict the target columns. If a column is specified as both an input and a target, then at inference time it is treated as an input if a value is provided; otherwise, it is treated as a target. This allows TabNN to be used for both typical classification tasks and tabular data imputation.
 
 `TabNNModel` includes the method `feature_importance_scores()`, which computes feature importance scores as the mean absolute value of *input × gradient* across the dataset. These values reflect how sensitive the model’s output is to small changes in each input feature, serving as a proxy for how much each feature influences the prediction. A higher score means the model output is more sensitive to that feature. The scores can be min–max normalized by setting the parameter `normalize=True` for improved interpretability.
@@ -13,13 +17,17 @@ When instantiating `TabNNModel`, the key parameters for customizing the data imp
 - `mask_seed` (int): A seed value to reproduce random masking results.
 - `upsampling_factor` (int): The factor by which to upsample training data to create more variants of masked rows.
 
-See full API documentation [here](https://github.com/ckstash/tabnn/blob/main/API.md)
+---
 
-## Installation
+## 📦 Installation
 
 `pip install tabnn`
 
-## Example usage
+Built for Python 3.12 or above.
+
+---
+
+## 🚀 Quick Start
 
 The example below uses the `numpy`, `pandas`, and `scikit-learn` libraries, which are installed as dependencies of `tabnn`.
 
@@ -98,3 +106,10 @@ for tgt in target_features:
 
     print(f"{tgt:8s}  acc={acc:.3f}  prec={prec:.3f}  rec={rec:.3f}  f1={f1:.3f}")
 ```
+
+---
+
+## 📚 API Reference
+
+See [here](https://github.com/ckstash/tabnn/blob/main/API.md)
+
